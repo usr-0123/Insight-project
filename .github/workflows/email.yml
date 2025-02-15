@@ -2,8 +2,23 @@ name: Send Email from GitHub Actions (TypeScript)
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 9 * * *"  # Runs daily at 9 AM UTC (optional)
+  # schedule:
+  #  - cron: "0 9 * * *"  # Runs daily at 9 AM UTC
+
+  # Workflow parameters
+  inputs:
+    recipient_email:
+      description: "Email address to send the notification"
+      required: true
+      type: string
+    subject:
+      description: "Email subject"
+      required: true
+      type: string
+    message:
+      description: "Email body content"
+      required: true
+      type: string
 
 jobs:
   send-email:
@@ -28,5 +43,7 @@ jobs:
         env:
           EMAIL_USER: ${{ secrets.GMAIL_SERVICE_EMAIL }}
           EMAIL_PASS: ${{ secrets.GMAIL_SERVICE_PASSWORD }}
-          EMAIL_RECP: ${{ secrets.RECEPIENT_EMAIL_FOR_TESTING_PURPOSES }}
+          EMAIL_RECP: ${{ inputs.recipient_email }}
+          SUBJECT: ${{ inputs.subject }}
+          MESSAGE: ${{ inputs.message }}
         run: npm start
