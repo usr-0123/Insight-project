@@ -27,6 +27,6 @@ jobs:
       - name: Send Email
         env:
           EMAIL_USER: ${{ secrets.GMAIL_SERVICE_EMAIL }}
-          EMAIL_PASS: ${{ GMAIL_SERVICE_PASSWORD }}
-          EMAIL_RECP: ${{ RECEPIENT_EMAIL_FOR_TESTING_PURPOSES }}
+          EMAIL_PASS: ${{ secrets.GMAIL_SERVICE_PASSWORD }}
+          EMAIL_RECP: ${{ secrets.RECEPIENT_EMAIL_FOR_TESTING_PURPOSES }}
         run: node dist/send-email.js
