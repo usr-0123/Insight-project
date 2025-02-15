@@ -43,7 +43,7 @@ jobs:
         env:
           EMAIL_USER: ${{ secrets.GMAIL_SERVICE_EMAIL }}
           EMAIL_PASS: ${{ secrets.GMAIL_SERVICE_PASSWORD }}
-          EMAIL_RECP: ${{ inputs.recipient_email }}
+          EMAIL_RECP: ${{ inputs.recipient_email || secrets.RECEPIENT_EMAIL_FOR_TESTING_PURPOSES }}
           SUBJECT: ${{ inputs.subject }}
           MESSAGE: ${{ inputs.message }}
         run: npm start "${{EMAIL_RECP}}" "${{SUBJECT}}" "${{MESSAGE}}"
