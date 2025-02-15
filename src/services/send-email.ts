@@ -28,10 +28,8 @@ export const sendEmail = async (): Promise<any> => {
         // Send the email
         const info = await transporter.sendMail(mailOptions);
         logger.info(`✅ Email sent successfully! : ${info.messageId}`);
-        return info;
     } catch (error:any) {
         logger.error(`❌ Error sending email: ${error.message}`);
-        return error
-        // process.exit(1);
+        process.exit(1);
     }
 };
