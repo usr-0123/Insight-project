@@ -6,8 +6,8 @@ dotenv.config();
 
 // Get parameters from CLI arguments
 const recipient = process.argv[2];
-const subject = process.argv[3];
-const message = process.argv[4];
+const subject =  process.argv[3];
+const message =  process.argv[4];
 
 // Function to send an email
 export const sendEmail = async (): Promise<void> => {
@@ -24,9 +24,9 @@ export const sendEmail = async (): Promise<void> => {
         // Email details
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: recipient || process.env.EMAIL_RECP,
-            subject: subject || "GitHub Actions - Automated Email (TypeScript)",
-            text: message || "Hello! This email was sent using GitHub Actions and Nodemailer with TypeScript.",
+            to: recipient || process.env.EMAIL_RECP || process.env.EMAIL_RECP_DEFAULT,
+            subject: subject || process.env.SUBJECT || "GitHub Actions - Automated Email (TypeScript)",
+            text: message || process.env.MESSAGE || "Hello! This email was sent using GitHub Actions and Nodemailer with TypeScript.",
         };
 
         console.log(mailOptions);
