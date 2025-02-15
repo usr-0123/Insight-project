@@ -6,7 +6,7 @@ import { logger } from "../utilis/logger";
 dotenv.config();
 
 // Function to send an email
-export const sendEmail = async (): Promise<void> => {
+export const sendEmail = async (): Promise<any> => {
     try {
         // Create a transporter using Gmail SMTP
         const transporter = nodemailer.createTransport({
@@ -28,8 +28,10 @@ export const sendEmail = async (): Promise<void> => {
         // Send the email
         const info = await transporter.sendMail(mailOptions);
         logger.info(`✅ Email sent successfully! : ${info.messageId}`);
+        return info;
     } catch (error:any) {
         logger.error(`❌ Error sending email: ${error.message}`);
-        process.exit(1);
+        return error
+        // process.exit(1);
     }
 };
