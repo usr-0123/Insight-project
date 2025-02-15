@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import nodemailer from "nodemailer"
+import { logger } from "../utilis/logger";
 
 // Load environment variables
 dotenv.config();
@@ -8,6 +9,8 @@ dotenv.config();
 const recipient = process.argv[2];
 const subject =  process.argv[3];
 const message =  process.argv[4];
+
+console.log( `${message}\n${subject}\n${message}\n` );
 
 // Function to send an email
 export const sendEmail = async (): Promise<void> => {
@@ -29,13 +32,11 @@ export const sendEmail = async (): Promise<void> => {
             text: message || process.env.MESSAGE || "Hello! This email was sent using GitHub Actions and Nodemailer with TypeScript.",
         };
 
-        console.log(mailOptions);
-
         // Send the email
         const info = await transporter.sendMail(mailOptions);
-        console.log("✅ Email sent successfully!", info.messageId);
-    } catch (error) {
-        console.error("❌ Error sending email:", error);
-        process.exit(1); // Exit with an error code
+        logger.info(`✅ Email sent successfully! : ${info.messageId}`);
+    } catch (error:any) {
+        logger.error(`❌ Error sending email: ${error.message}`);
+        process.exit(1);
     }
 };
