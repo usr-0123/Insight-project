@@ -13,7 +13,7 @@
     "dev": "npm run build && npm run start",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "node -e \"const fs = require('fs'); const path = require('path'); const date = new Date().toISOString().split('T')[0].replace(/-/g, ''); const folder = path.join('output', date); if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true }); require('child_process').execSync(`npx jest --json --outputFile=${path.join(folder, 'jest-results.json')}`, { stdio: 'inherit' });\""
+    "test": "npx jest --json --outputFile=output"
   },
   "author": "",
   "license": "ISC",
