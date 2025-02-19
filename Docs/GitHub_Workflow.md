@@ -224,7 +224,7 @@ const recipient = process.argv[2];
 const subject = process.argv[3];
 const message = process.argv[4];
 
-async function sendEmail() {
+async function sendEmailService() {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -244,5 +244,5 @@ async function sendEmail() {
   console.log("✅ Email sent successfully!");
 }
 
-sendEmail().catch(console.error);
+sendEmailService().catch(console.error);
 ```
