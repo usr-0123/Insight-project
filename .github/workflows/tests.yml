@@ -3,7 +3,7 @@ name: Run daily jests tests (TypeScript) on GitHub Actions
 on:
   workflow_dispatch:
   schedule:
-    - cron: "00 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   run-tests-cron:
