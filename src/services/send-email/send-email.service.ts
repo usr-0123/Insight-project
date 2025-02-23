@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import nodemailer from "nodemailer"
-import {logger} from "../../utilis/logger";
 import {DateFormatter} from "../../utilis/date-time";
+import {ServiceResponse} from "../../models/service.response";
 
 // Load environment variables
 dotenv.config();
@@ -10,8 +10,9 @@ dotenv.config();
 const formatter = new DateFormatter(new Date());
 
 // Function to send an email
-export const sendEmailService = async (): Promise<any> => {
+export const sendEmailService = async (): Promise<ServiceResponse> => {
     try {
+
         // Create a transporter using Gmail SMTP
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -87,11 +88,19 @@ export const sendEmailService = async (): Promise<any> => {
 
         // Send the email
         const info = await transporter.sendMail(mailOptions);
-        logger.info(`✅ Email sent successfully! : ${info.messageId}`);
-        return info;
+
+        return {
+            success: true,
+            message:`✅ Email sent successfully! : ${info.messageId}`,
+            time: formatter.format(),
+            data: {info}
+        };
     } catch (error:any) {
-        logger.error(`❌ Error sending email: ${error.message}`);
-        return error;
-        // process.exit(1);
+        return {
+            success: false,
+            message:`❌ Error sending email: ${error.message}`,
+            time: formatter.format(),
+            data: {error}
+        };
     }
 };
