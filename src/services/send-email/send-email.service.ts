@@ -93,14 +93,14 @@ export const sendEmailService = async (): Promise<ServiceResponse> => {
             success: true,
             message:`✅ Email sent successfully! : ${info.messageId}`,
             time: formatter.format(),
-            data: {info}
+            data: {value: info}
         };
     } catch (error:any) {
         return {
             success: false,
             message:`❌ Error sending email: ${error.message}`,
             time: formatter.format(),
-            data: {error}
+            data: {value: error}
         };
     }
 };

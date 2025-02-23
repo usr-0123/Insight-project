@@ -3,22 +3,25 @@ import {createFolder} from "./utilis/folder";
 import path from "path";
 import {uploadFiles} from "./services/save-files/save-files-to-firebase.service";
 import {logger} from "./utilis/logger";
+import {createEmptyJsonFile} from "./utilis/file";
 
 logger.info("Starting service request");
 
 logger.info("Creating folder for saving tests");
 
-// Create a folder to save the output JSON file
+// Create a folder and a file named output.json to save the output JSON file
 (async () => {
     try {
-        const timestamp = new Date().toISOString().split("T")[0].replace(/-/g, "");
-        const resultsFolder = createFolder(`test_results/${timestamp}`);
-        const filePath = path.join(resultsFolder, "example.json");
-        console.log(`The response ============================================= \n${filePath}\n =============================================`);
+        const resultsFolder = createFolder("output");
 
-        createFolder(resultsFolder);
+        if (resultsFolder.success) {
+            const newFile = createEmptyJsonFile(resultsFolder.data.value, "output");
+            console.log(newFile.message);
+        } else {
+            console.log(resultsFolder.message);
+        }
     } catch (error) {
-        console.log(`The error ============================================= \n${error}\n =============================================`);
+        console.log(`An error occurred while creating folder: ${error}`);
     }
 })();
 
@@ -35,14 +38,14 @@ logger.info("Saving test results to cloud service");
 
 logger.info("Send email service request");
 // Run the tests
-(async () => {
-    try {
-        const response = await sendEmailService()
-        return response;
-    } catch (error) {
-        return error;
-    }
-})();
+// (async () => {
+//     try {
+//         const response = await sendEmailService()
+//         return response;
+//     } catch (error) {
+//         return error;
+//     }
+// })();
 
 
 /////////////////////////////////////////////////

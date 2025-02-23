@@ -4,6 +4,6 @@ interface BaseResponse {
     time: string;
 }
 
-export interface ServiceResponse extends BaseResponse {
-    data: {}
+export interface ServiceResponse<T = any> extends BaseResponse {
+    data: {value: T}
 }
