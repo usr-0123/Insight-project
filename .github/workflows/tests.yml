@@ -5,6 +5,8 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+branch: main
+
 jobs:
   run-tests-cron:
     runs-on: ubuntu-latest
@@ -12,6 +14,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: tests
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -23,6 +27,9 @@ jobs:
 
       - name: Compile TypeScript
         run: npm run build
+
+      - name: Create folder
+        run: npm start
 
       - name: Run jest tests
         run: npm run test

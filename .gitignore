@@ -3,3 +3,4 @@ dist/
 .env
 jest.config.js
 output/
+test_results/

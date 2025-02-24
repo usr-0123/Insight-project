@@ -8,6 +8,7 @@ jest.mock("./services/send-email/send-email.service", () => ({
 describe("Function to call the send email service", () => {
     it ("Should call the send email service", async () => {
         const mockResponse = { success: true, message: "Function triggered successfully!" };
+
         (sendEmailService as jest.Mock).mockResolvedValue(mockResponse);
 
         const result = await sendEmailService();
